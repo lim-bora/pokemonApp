@@ -1,0 +1,14 @@
+.deshBoard-Box{
+    display: flex;
+    justify-content: space-between;
+}
+.deshBoard-Box li{
+    border: 2px dotted #878787;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.deshBoard-Box li img.notSelectedImg{
+    width: 50px;
+}
