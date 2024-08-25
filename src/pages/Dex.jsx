@@ -1,9 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, createContext } from "react";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
 import styled from "styled-components";
 import MOCK_DATA from "../mock";
+
+//컨텍스트 분리(변화O, 변화X)
+export const PokemonStateContext = createContext(); //변화O
+export const PokemonDispatchContext = createContext(); //변화X
 
 const Dex = () => {
   const defaultLength = Array.from({ length: 6 });
@@ -24,8 +28,6 @@ const Dex = () => {
 
   //포켓몬 삭제 함수
   const onRemove = (pokemon) => {
-    console.log("myPokemon", myPokemon);
-
     const updatedList = myPokemon.filter(
       (item) => item !== undefined && item.id !== pokemon.id
     );
@@ -45,12 +47,18 @@ const Dex = () => {
 
   return (
     <DexContainer>
-      <Dashboard
-        myPokemon={myPokemon}
-        setMyPokemon={setMyPokemon}
-        onRemove={onRemove}
-      />
-      <PokemonList myPokemon={myPokemon} onAdd={onAdd} />
+      <PokemonStateContext.Provider value={myPokemon}>
+        <PokemonDispatchContext.Provider
+          value={{
+            setMyPokemon,
+            onRemove,
+            onAdd,
+          }}
+        >
+          <Dashboard />
+          <PokemonList />
+        </PokemonDispatchContext.Provider>
+      </PokemonStateContext.Provider>
     </DexContainer>
   );
 };

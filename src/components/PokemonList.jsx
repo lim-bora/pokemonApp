@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PokemonCard from "../components/PokemonCard";
 import styled from "styled-components";
 import MOCK_DATA from "../mock";
+import { PokemonStateContext, PokemonDispatchContext } from "../pages/Dex";
 
-const PokemonList = ({ onAdd, myPokemon }) => {
+const PokemonList = () => {
+  const myPokemon = useContext(PokemonStateContext);
+  const { onAdd } = useContext(PokemonDispatchContext);
+
   //목업데이터 관리해줄 state : 초기값(목업데이터)
   const [pokemon, setPokemon] = useState(MOCK_DATA);
 

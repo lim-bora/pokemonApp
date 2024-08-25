@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import "../App.css";
+import { PokemonStateContext, PokemonDispatchContext } from "../pages/Dex";
 
-const Dashboard = ({ myPokemon, onRemove, setMyPokemon }) => {
+const Dashboard = () => {
+  const myPokemon = useContext(PokemonStateContext);
+  const { onRemove } = useContext(PokemonDispatchContext);
   //선택안됬을때 디폴트 이미지
   const notSelectedImg =
     "https://react-6-pokemon.vercel.app/assets/pokeball-13iwdk7Y.png";
